@@ -5,6 +5,7 @@ import ClickableComponent from './clickable-component.js';
 import Component from './component';
 import log from './utils/log.js';
 import {assign} from './utils/obj';
+import keycode from 'keycode';
 
 /**
  * Base class for all buttons.
@@ -41,10 +42,7 @@ class Button extends ClickableComponent {
     attributes = assign({
 
       // Necessary since the default button type is "submit"
-      'type': 'button',
-
-      // let the screen reader user know that the text of the button may change
-      'aria-live': 'polite'
+      type: 'button'
     }, attributes);
 
     const el = Component.prototype.createEl.call(this, tag, props, attributes);
@@ -106,15 +104,28 @@ class Button extends ClickableComponent {
    *
    * @listens keydown
    */
-  handleKeyPress(event) {
+  handleKeyDown(event) {
 
-    // Ignore Space (32) or Enter (13) key operation, which is handled by the browser for a button.
-    if (event.which === 32 || event.which === 13) {
+    // Ignore Space or Enter key operation, which is handled by the browser for
+    // a button - though not for its super class, ClickableComponent. Also,
+    // prevent the event from propagating through the DOM and triggering Player
+    // hotkeys. We do not preventDefault here because we _want_ the browser to
+    // handle it.
+    if (keycode.isEventKey(event, 'Space') || keycode.isEventKey(event, 'Enter')) {
+      // Videojs 7.5.5 has added event stopPropagation throughout its components to fix some hotkeys behaviour, such as reacting to hotkeys insie of forms inside the player.
+      // This broke our keyhandling implemenation, preventing any remote key presses from being handled.
+      // See more here:
+      // - https://github.com/videojs/video.js/commit/79eadac2523094bdbc61a782d4ad10b72176cbcd
+      // - https://github.com/videojs/video.js/pull/5969
+      // The reasons to stop propagation don't seem to apply to our usecase, so it should be safe to leave this commented out.
+      // If this causes problems in the future, the alternative solution would perhaps be to use rewrite our key handling to go through the hotkeys system:
+      // https://github.com/videojs/video.js/blob/cf6e0e824814f3ccb061b057a9aa5eff3b54ba6e/docs/guides/options.md#useractionshotkeys
+      // event.stopPropagation();
       return;
     }
 
     // Pass keypress handling up for unsupported keys
-    super.handleKeyPress(event);
+    super.handleKeyDown(event);
   }
 }
 

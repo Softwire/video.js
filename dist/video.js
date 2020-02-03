@@ -23035,7 +23035,7 @@
 
       _this.reportUserActivity();
 
-      _this.one('play', _this.listenForUserActivity_);
+      _this.listenForUserActivity_();
 
       _this.on('stageclick', _this.handleStageClick_);
 

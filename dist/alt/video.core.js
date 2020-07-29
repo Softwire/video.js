@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.9 <http://videojs.com/>
+ * Video.js 7.5.10 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -18,7 +18,7 @@
   window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
   document = document && document.hasOwnProperty('default') ? document['default'] : document;
 
-  var version = "7.5.9";
+  var version = "7.5.10";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -4272,7 +4272,7 @@
      * @listens Component#touchleave
      * @listens Component#touchcancel
      * @listens Component#touchend
-      */
+       */
     ;
 
     _proto.emitTapEvents = function emitTapEvents() {
@@ -22994,10 +22994,6 @@
 
       if (_this.isAudio()) {
         _this.addClass('vjs-audio');
-      }
-
-      if (_this.flexNotSupported_()) {
-        _this.addClass('vjs-no-flex');
       } // TODO: Make this smarter. Toggle user state between touching/mousing
       // using events, since devices can have both touch and mouse events.
       // TODO: Make this check be performed again when the window switches between monitors
@@ -27049,22 +27045,6 @@
       }
 
       return baseOptions;
-    }
-    /**
-     * Determine whether or not flexbox is supported
-     *
-     * @return {boolean}
-     *         - true if flexbox is supported
-     *         - false if flexbox is not supported
-     */
-    ;
-
-    _proto.flexNotSupported_ = function flexNotSupported_() {
-      var elem = document.createElement('i'); // Note: We don't actually use flexBasis (or flexOrder), but it's one of the more
-      // common flex features that we can rely on when checking for flex support.
-
-      return !('flexBasis' in elem.style || 'webkitFlexBasis' in elem.style || 'mozFlexBasis' in elem.style || 'msFlexBasis' in elem.style || // IE10-specific (2012 flex spec), available for completeness
-      'msFlexOrder' in elem.style);
     };
 
     return Player;

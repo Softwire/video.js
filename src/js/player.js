@@ -2342,6 +2342,17 @@ class Player extends Component {
   }
 
   /**
+   * Check if the player's content is a livestream or not
+   *
+   * @return {boolean}
+   *         - false: if the media is not live (i.e. it is VOD)
+   *         - true: if media is live
+   */
+  live() {
+    return this.techGet_('live') || false;
+  }
+
+  /**
    * Returns whether or not the user is "scrubbing". Scrubbing is
    * when the user has clicked the progress bar handle and is
    * dragging it along the progress bar.

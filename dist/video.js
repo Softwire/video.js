@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.10 <http://videojs.com/>
+ * Video.js 7.5.11 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -18,7 +18,7 @@
   window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
   document = document && document.hasOwnProperty('default') ? document['default'] : document;
 
-  var version = "7.5.10";
+  var version = "7.5.11";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -24874,6 +24874,18 @@
 
     _proto.played = function played() {
       return this.techGet_('played') || createTimeRanges(0, 0);
+    }
+    /**
+     * Check if the player's content is a livestream or not
+     *
+     * @return {boolean}
+     *         - false: if the media is not live (i.e. it is VOD)
+     *         - true: if media is live
+     */
+    ;
+
+    _proto.live = function live() {
+      return this.techGet_('live') || false;
     }
     /**
      * Returns whether or not the user is "scrubbing". Scrubbing is

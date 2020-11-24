@@ -3774,7 +3774,7 @@ class Player extends Component {
 
     // Fixes bug on Android & iOS where when tapping progressBar (when control bar is displayed)
     // controlBar would no longer be hidden by default timeout.
-    if (controlBar && !browser.IS_IOS && !browser.IS_ANDROID) {
+    if (controlBar && !browser.IS_IOS && !browser.IS_ANDROID && !browser.IS_WEBOS) {
 
       controlBar.on('mouseenter', function(event) {
         this.player().cache_.inactivityTimeout = this.player().options_.inactivityTimeout;

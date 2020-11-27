@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.11 <http://videojs.com/>
+ * Video.js 7.5.12 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -25,7 +25,7 @@ import { CaptionParser } from 'mux.js/lib/mp4';
 import tsInspector from 'mux.js/lib/tools/ts-inspector.js';
 import { Decrypter, AsyncStream, decrypt } from 'aes-decrypter';
 
-var version = "7.5.11";
+var version = "7.5.12";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -4931,6 +4931,15 @@ var IS_SAFARI = /Safari/i.test(USER_AGENT) && !IS_CHROME && !IS_ANDROID && !IS_E
 
 var IS_ANY_SAFARI = (IS_SAFARI || IS_IOS) && !IS_CHROME;
 /**
+ * Whether or not this is LG WebOS.
+ *
+ * @static
+ * @const
+ * @type {Boolean}
+ */
+
+var IS_WEBOS = /WebOS/i.test(USER_AGENT);
+/**
  * Whether or not this device is touch-enabled.
  *
  * @static
@@ -4956,6 +4965,7 @@ var browser = /*#__PURE__*/Object.freeze({
   IE_VERSION: IE_VERSION,
   IS_SAFARI: IS_SAFARI,
   IS_ANY_SAFARI: IS_ANY_SAFARI,
+  IS_WEBOS: IS_WEBOS,
   TOUCH_ENABLED: TOUCH_ENABLED
 });
 
@@ -23877,7 +23887,7 @@ function (_Component) {
     var controlBar = this.getChild('controlBar'); // Fixes bug on Android & iOS where when tapping progressBar (when control bar is displayed)
     // controlBar would no longer be hidden by default timeout.
 
-    if (controlBar && !IS_IOS && !IS_ANDROID) {
+    if (controlBar && !IS_IOS && !IS_ANDROID && !IS_WEBOS) {
       controlBar.on('mouseenter', function (event) {
         this.player().cache_.inactivityTimeout = this.player().options_.inactivityTimeout;
         this.player().options_.inactivityTimeout = 0;

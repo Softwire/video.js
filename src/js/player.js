@@ -3783,7 +3783,6 @@ class Player extends Component {
     // Listen for keyboard navigation
     // Shouldn't need to use inProgress interval because of key repeat
     this.on('keydown', handleActivity);
-    this.on('keyup', handleActivity);
 
     // Run an interval every 250 milliseconds instead of stuffing everything into
     // the mousemove/touchmove function itself, to prevent performance degradation.
@@ -3800,9 +3799,6 @@ class Player extends Component {
 
       // Reset the activity tracker
       this.userActivity_ = false;
-
-      // If the user state was inactive, set the state to active
-      this.userActive(true);
 
       // Clear any existing inactivity timeout to start the timer over
       this.clearTimeout(inactivityTimeout);

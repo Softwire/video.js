@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.7 <http://videojs.com/>
+ * Video.js 7.5.13 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -18,7 +18,7 @@
   window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
   document = document && document.hasOwnProperty('default') ? document['default'] : document;
 
-  var version = "7.5.7";
+  var version = "7.5.13";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -24548,8 +24548,7 @@
       // Shouldn't need to use inProgress interval because of key repeat
 
 
-      this.on('keydown', handleActivity);
-      this.on('keyup', handleActivity); // Run an interval every 250 milliseconds instead of stuffing everything into
+      this.on('keydown', handleActivity); // Run an interval every 250 milliseconds instead of stuffing everything into
       // the mousemove/touchmove function itself, to prevent performance degradation.
       // `this.reportUserActivity` simply sets this.userActivity_ to true, which
       // then gets picked up by this loop
@@ -24563,9 +24562,7 @@
         } // Reset the activity tracker
 
 
-        this.userActivity_ = false; // If the user state was inactive, set the state to active
-
-        this.userActive(true); // Clear any existing inactivity timeout to start the timer over
+        this.userActivity_ = false; // Clear any existing inactivity timeout to start the timer over
 
         this.clearTimeout(inactivityTimeout);
         var timeout = this.options_.inactivityTimeout;

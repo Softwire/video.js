@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.12 <http://videojs.com/>
+ * Video.js 7.5.13 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -27,7 +27,7 @@ var mp4 = require('mux.js/lib/mp4');
 var tsInspector = _interopDefault(require('mux.js/lib/tools/ts-inspector.js'));
 var aesDecrypter = require('aes-decrypter');
 
-var version = "7.5.12";
+var version = "7.5.13";
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -4266,7 +4266,7 @@ function () {
    * @listens Component#touchleave
    * @listens Component#touchcancel
    * @listens Component#touchend
-     */
+    */
   ;
 
   _proto.emitTapEvents = function emitTapEvents() {
@@ -23901,8 +23901,7 @@ function (_Component) {
     // Shouldn't need to use inProgress interval because of key repeat
 
 
-    this.on('keydown', handleActivity);
-    this.on('keyup', handleActivity); // Run an interval every 250 milliseconds instead of stuffing everything into
+    this.on('keydown', handleActivity); // Run an interval every 250 milliseconds instead of stuffing everything into
     // the mousemove/touchmove function itself, to prevent performance degradation.
     // `this.reportUserActivity` simply sets this.userActivity_ to true, which
     // then gets picked up by this loop
@@ -23916,9 +23915,7 @@ function (_Component) {
       } // Reset the activity tracker
 
 
-      this.userActivity_ = false; // If the user state was inactive, set the state to active
-
-      this.userActive(true); // Clear any existing inactivity timeout to start the timer over
+      this.userActivity_ = false; // Clear any existing inactivity timeout to start the timer over
 
       this.clearTimeout(inactivityTimeout);
       var timeout = this.options_.inactivityTimeout;

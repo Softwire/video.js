@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.13 <http://videojs.com/>
+ * Video.js 7.5.14 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -18,7 +18,7 @@
   window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
   document = document && document.hasOwnProperty('default') ? document['default'] : document;
 
-  var version = "7.5.13";
+  var version = "7.5.14";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -371,19 +371,19 @@
   var log = createLogger('VIDEOJS');
   var createLogger$1 = log.createLogger;
 
-  function clean(s) {
-    return s.replace(/\n\r?\s*/g, '');
+  function clean (s) {
+    return s.replace(/\n\r?\s*/g, '')
   }
 
-  var tsml = function tsml(sa) {
-    var s = '',
-        i = 0;
 
-    for (; i < arguments.length; i++) {
+  var tsml = function tsml (sa) {
+    var s = ''
+      , i = 0;
+
+    for (; i < arguments.length; i++)
       s += clean(sa[i]) + (arguments[i + 1] || '');
-    }
 
-    return s;
+    return s
   };
 
   /**
@@ -4272,7 +4272,7 @@
      * @listens Component#touchleave
      * @listens Component#touchcancel
      * @listens Component#touchend
-      */
+       */
     ;
 
     _proto.emitTapEvents = function emitTapEvents() {
@@ -5315,16 +5315,16 @@
   var tuple = SafeParseTuple;
 
   function SafeParseTuple(obj, reviver) {
-    var json;
-    var error = null;
+      var json;
+      var error = null;
 
-    try {
-      json = JSON.parse(obj, reviver);
-    } catch (err) {
-      error = err;
-    }
+      try {
+          json = JSON.parse(obj, reviver);
+      } catch (err) {
+          error = err;
+      }
 
-    return [error, json];
+      return [error, json]
   }
 
   /**
@@ -5461,194 +5461,181 @@
   }
 
   var keycode = createCommonjsModule(function (module, exports) {
-    // Source: http://jsfiddle.net/vWx8V/
-    // http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes
+  // Source: http://jsfiddle.net/vWx8V/
+  // http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes
 
-    /**
-     * Conenience method returns corresponding value for given keyName or keyCode.
-     *
-     * @param {Mixed} keyCode {Number} or keyName {String}
-     * @return {Mixed}
-     * @api public
-     */
-    function keyCode(searchInput) {
-      // Keyboard Events
-      if (searchInput && 'object' === typeof searchInput) {
-        var hasKeyCode = searchInput.which || searchInput.keyCode || searchInput.charCode;
-        if (hasKeyCode) searchInput = hasKeyCode;
-      } // Numbers
+  /**
+   * Conenience method returns corresponding value for given keyName or keyCode.
+   *
+   * @param {Mixed} keyCode {Number} or keyName {String}
+   * @return {Mixed}
+   * @api public
+   */
 
-
-      if ('number' === typeof searchInput) return names[searchInput]; // Everything else (cast to string)
-
-      var search = String(searchInput); // check codes
-
-      var foundNamedKey = codes[search.toLowerCase()];
-      if (foundNamedKey) return foundNamedKey; // check aliases
-
-      var foundNamedKey = aliases[search.toLowerCase()];
-      if (foundNamedKey) return foundNamedKey; // weird character?
-
-      if (search.length === 1) return search.charCodeAt(0);
-      return undefined;
+  function keyCode(searchInput) {
+    // Keyboard Events
+    if (searchInput && 'object' === typeof searchInput) {
+      var hasKeyCode = searchInput.which || searchInput.keyCode || searchInput.charCode;
+      if (hasKeyCode) searchInput = hasKeyCode;
     }
-    /**
-     * Compares a keyboard event with a given keyCode or keyName.
-     *
-     * @param {Event} event Keyboard event that should be tested
-     * @param {Mixed} keyCode {Number} or keyName {String}
-     * @return {Boolean}
-     * @api public
-     */
 
+    // Numbers
+    if ('number' === typeof searchInput) return names[searchInput]
 
-    keyCode.isEventKey = function isEventKey(event, nameOrCode) {
-      if (event && 'object' === typeof event) {
-        var keyCode = event.which || event.keyCode || event.charCode;
+    // Everything else (cast to string)
+    var search = String(searchInput);
 
-        if (keyCode === null || keyCode === undefined) {
-          return false;
-        }
+    // check codes
+    var foundNamedKey = codes[search.toLowerCase()];
+    if (foundNamedKey) return foundNamedKey
 
-        if (typeof nameOrCode === 'string') {
-          // check codes
-          var foundNamedKey = codes[nameOrCode.toLowerCase()];
+    // check aliases
+    var foundNamedKey = aliases[search.toLowerCase()];
+    if (foundNamedKey) return foundNamedKey
 
-          if (foundNamedKey) {
-            return foundNamedKey === keyCode;
-          } // check aliases
+    // weird character?
+    if (search.length === 1) return search.charCodeAt(0)
 
+    return undefined
+  }
 
-          var foundNamedKey = aliases[nameOrCode.toLowerCase()];
-
-          if (foundNamedKey) {
-            return foundNamedKey === keyCode;
-          }
-        } else if (typeof nameOrCode === 'number') {
-          return nameOrCode === keyCode;
-        }
-
-        return false;
+  /**
+   * Compares a keyboard event with a given keyCode or keyName.
+   *
+   * @param {Event} event Keyboard event that should be tested
+   * @param {Mixed} keyCode {Number} or keyName {String}
+   * @return {Boolean}
+   * @api public
+   */
+  keyCode.isEventKey = function isEventKey(event, nameOrCode) {
+    if (event && 'object' === typeof event) {
+      var keyCode = event.which || event.keyCode || event.charCode;
+      if (keyCode === null || keyCode === undefined) { return false; }
+      if (typeof nameOrCode === 'string') {
+        // check codes
+        var foundNamedKey = codes[nameOrCode.toLowerCase()];
+        if (foundNamedKey) { return foundNamedKey === keyCode; }
+      
+        // check aliases
+        var foundNamedKey = aliases[nameOrCode.toLowerCase()];
+        if (foundNamedKey) { return foundNamedKey === keyCode; }
+      } else if (typeof nameOrCode === 'number') {
+        return nameOrCode === keyCode;
       }
-    };
-
-    exports = module.exports = keyCode;
-    /**
-     * Get by name
-     *
-     *   exports.code['enter'] // => 13
-     */
-
-    var codes = exports.code = exports.codes = {
-      'backspace': 8,
-      'tab': 9,
-      'enter': 13,
-      'shift': 16,
-      'ctrl': 17,
-      'alt': 18,
-      'pause/break': 19,
-      'caps lock': 20,
-      'esc': 27,
-      'space': 32,
-      'page up': 33,
-      'page down': 34,
-      'end': 35,
-      'home': 36,
-      'left': 37,
-      'up': 38,
-      'right': 39,
-      'down': 40,
-      'insert': 45,
-      'delete': 46,
-      'command': 91,
-      'left command': 91,
-      'right command': 93,
-      'numpad *': 106,
-      'numpad +': 107,
-      'numpad -': 109,
-      'numpad .': 110,
-      'numpad /': 111,
-      'num lock': 144,
-      'scroll lock': 145,
-      'my computer': 182,
-      'my calculator': 183,
-      ';': 186,
-      '=': 187,
-      ',': 188,
-      '-': 189,
-      '.': 190,
-      '/': 191,
-      '`': 192,
-      '[': 219,
-      '\\': 220,
-      ']': 221,
-      "'": 222 // Helper aliases
-
-    };
-    var aliases = exports.aliases = {
-      'windows': 91,
-      '⇧': 16,
-      '⌥': 18,
-      '⌃': 17,
-      '⌘': 91,
-      'ctl': 17,
-      'control': 17,
-      'option': 18,
-      'pause': 19,
-      'break': 19,
-      'caps': 20,
-      'return': 13,
-      'escape': 27,
-      'spc': 32,
-      'spacebar': 32,
-      'pgup': 33,
-      'pgdn': 34,
-      'ins': 45,
-      'del': 46,
-      'cmd': 91
-      /*!
-       * Programatically add the following
-       */
-      // lower case chars
-
-    };
-
-    for (i = 97; i < 123; i++) {
-      codes[String.fromCharCode(i)] = i - 32;
-    } // numbers
-
-
-    for (var i = 48; i < 58; i++) {
-      codes[i - 48] = i;
-    } // function keys
-
-
-    for (i = 1; i < 13; i++) {
-      codes['f' + i] = i + 111;
-    } // numpad keys
-
-
-    for (i = 0; i < 10; i++) {
-      codes['numpad ' + i] = i + 96;
+      return false;
     }
-    /**
-     * Get by code
-     *
-     *   exports.name[13] // => 'Enter'
-     */
+  };
 
+  exports = module.exports = keyCode;
 
-    var names = exports.names = exports.title = {}; // title for backward compat
-    // Create reverse mapping
+  /**
+   * Get by name
+   *
+   *   exports.code['enter'] // => 13
+   */
 
-    for (i in codes) {
-      names[codes[i]] = i;
-    } // Add aliases
+  var codes = exports.code = exports.codes = {
+    'backspace': 8,
+    'tab': 9,
+    'enter': 13,
+    'shift': 16,
+    'ctrl': 17,
+    'alt': 18,
+    'pause/break': 19,
+    'caps lock': 20,
+    'esc': 27,
+    'space': 32,
+    'page up': 33,
+    'page down': 34,
+    'end': 35,
+    'home': 36,
+    'left': 37,
+    'up': 38,
+    'right': 39,
+    'down': 40,
+    'insert': 45,
+    'delete': 46,
+    'command': 91,
+    'left command': 91,
+    'right command': 93,
+    'numpad *': 106,
+    'numpad +': 107,
+    'numpad -': 109,
+    'numpad .': 110,
+    'numpad /': 111,
+    'num lock': 144,
+    'scroll lock': 145,
+    'my computer': 182,
+    'my calculator': 183,
+    ';': 186,
+    '=': 187,
+    ',': 188,
+    '-': 189,
+    '.': 190,
+    '/': 191,
+    '`': 192,
+    '[': 219,
+    '\\': 220,
+    ']': 221,
+    "'": 222
+  };
 
+  // Helper aliases
 
-    for (var alias in aliases) {
-      codes[alias] = aliases[alias];
-    }
+  var aliases = exports.aliases = {
+    'windows': 91,
+    '⇧': 16,
+    '⌥': 18,
+    '⌃': 17,
+    '⌘': 91,
+    'ctl': 17,
+    'control': 17,
+    'option': 18,
+    'pause': 19,
+    'break': 19,
+    'caps': 20,
+    'return': 13,
+    'escape': 27,
+    'spc': 32,
+    'spacebar': 32,
+    'pgup': 33,
+    'pgdn': 34,
+    'ins': 45,
+    'del': 46,
+    'cmd': 91
+  };
+
+  /*!
+   * Programatically add the following
+   */
+
+  // lower case chars
+  for (i = 97; i < 123; i++) codes[String.fromCharCode(i)] = i - 32;
+
+  // numbers
+  for (var i = 48; i < 58; i++) codes[i - 48] = i;
+
+  // function keys
+  for (i = 1; i < 13; i++) codes['f'+i] = i + 111;
+
+  // numpad keys
+  for (i = 0; i < 10; i++) codes['numpad '+i] = i + 96;
+
+  /**
+   * Get by code
+   *
+   *   exports.name[13] // => 'Enter'
+   */
+
+  var names = exports.names = exports.title = {}; // title for backward compat
+
+  // Create reverse mapping
+  for (i in codes) names[codes[i]] = i;
+
+  // Add aliases
+  for (var alias in aliases) {
+    codes[alias] = aliases[alias];
+  }
   });
   var keycode_1 = keycode.code;
   var keycode_2 = keycode.codes;
@@ -7288,436 +7275,416 @@
   });
 
   var isFunction_1 = isFunction;
+
   var toString$1 = Object.prototype.toString;
 
-  function isFunction(fn) {
+  function isFunction (fn) {
     var string = toString$1.call(fn);
-    return string === '[object Function]' || typeof fn === 'function' && string !== '[object RegExp]' || typeof window !== 'undefined' && ( // IE8 and below
-    fn === window.setTimeout || fn === window.alert || fn === window.confirm || fn === window.prompt);
+    return string === '[object Function]' ||
+      (typeof fn === 'function' && string !== '[object RegExp]') ||
+      (typeof window !== 'undefined' &&
+       // IE8 and below
+       (fn === window.setTimeout ||
+        fn === window.alert ||
+        fn === window.confirm ||
+        fn === window.prompt))
   }
 
   var trim_1 = createCommonjsModule(function (module, exports) {
-    exports = module.exports = trim;
+  exports = module.exports = trim;
 
-    function trim(str) {
-      return str.replace(/^\s*|\s*$/g, '');
-    }
+  function trim(str){
+    return str.replace(/^\s*|\s*$/g, '');
+  }
 
-    exports.left = function (str) {
-      return str.replace(/^\s*/, '');
-    };
+  exports.left = function(str){
+    return str.replace(/^\s*/, '');
+  };
 
-    exports.right = function (str) {
-      return str.replace(/\s*$/, '');
-    };
+  exports.right = function(str){
+    return str.replace(/\s*$/, '');
+  };
   });
   var trim_2 = trim_1.left;
   var trim_3 = trim_1.right;
 
   var fnToStr = Function.prototype.toString;
-  var constructorRegex = /^\s*class\b/;
 
+  var constructorRegex = /^\s*class\b/;
   var isES6ClassFn = function isES6ClassFunction(value) {
-    try {
-      var fnStr = fnToStr.call(value);
-      return constructorRegex.test(fnStr);
-    } catch (e) {
-      return false; // not a function
-    }
+  	try {
+  		var fnStr = fnToStr.call(value);
+  		return constructorRegex.test(fnStr);
+  	} catch (e) {
+  		return false; // not a function
+  	}
   };
 
   var tryFunctionObject = function tryFunctionToStr(value) {
-    try {
-      if (isES6ClassFn(value)) {
-        return false;
-      }
-
-      fnToStr.call(value);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  	try {
+  		if (isES6ClassFn(value)) { return false; }
+  		fnToStr.call(value);
+  		return true;
+  	} catch (e) {
+  		return false;
+  	}
   };
-
   var toStr = Object.prototype.toString;
   var fnClass = '[object Function]';
   var genClass = '[object GeneratorFunction]';
   var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
 
   var isCallable = function isCallable(value) {
-    if (!value) {
-      return false;
-    }
-
-    if (typeof value !== 'function' && typeof value !== 'object') {
-      return false;
-    }
-
-    if (typeof value === 'function' && !value.prototype) {
-      return true;
-    }
-
-    if (hasToStringTag) {
-      return tryFunctionObject(value);
-    }
-
-    if (isES6ClassFn(value)) {
-      return false;
-    }
-
-    var strClass = toStr.call(value);
-    return strClass === fnClass || strClass === genClass;
+  	if (!value) { return false; }
+  	if (typeof value !== 'function' && typeof value !== 'object') { return false; }
+  	if (typeof value === 'function' && !value.prototype) { return true; }
+  	if (hasToStringTag) { return tryFunctionObject(value); }
+  	if (isES6ClassFn(value)) { return false; }
+  	var strClass = toStr.call(value);
+  	return strClass === fnClass || strClass === genClass;
   };
 
   var toStr$1 = Object.prototype.toString;
   var hasOwnProperty = Object.prototype.hasOwnProperty;
 
   var forEachArray = function forEachArray(array, iterator, receiver) {
-    for (var i = 0, len = array.length; i < len; i++) {
-      if (hasOwnProperty.call(array, i)) {
-        if (receiver == null) {
-          iterator(array[i], i, array);
-        } else {
-          iterator.call(receiver, array[i], i, array);
-        }
+      for (var i = 0, len = array.length; i < len; i++) {
+          if (hasOwnProperty.call(array, i)) {
+              if (receiver == null) {
+                  iterator(array[i], i, array);
+              } else {
+                  iterator.call(receiver, array[i], i, array);
+              }
+          }
       }
-    }
   };
 
   var forEachString = function forEachString(string, iterator, receiver) {
-    for (var i = 0, len = string.length; i < len; i++) {
-      // no such thing as a sparse string.
-      if (receiver == null) {
-        iterator(string.charAt(i), i, string);
-      } else {
-        iterator.call(receiver, string.charAt(i), i, string);
+      for (var i = 0, len = string.length; i < len; i++) {
+          // no such thing as a sparse string.
+          if (receiver == null) {
+              iterator(string.charAt(i), i, string);
+          } else {
+              iterator.call(receiver, string.charAt(i), i, string);
+          }
       }
-    }
   };
 
   var forEachObject = function forEachObject(object, iterator, receiver) {
-    for (var k in object) {
-      if (hasOwnProperty.call(object, k)) {
-        if (receiver == null) {
-          iterator(object[k], k, object);
-        } else {
-          iterator.call(receiver, object[k], k, object);
-        }
+      for (var k in object) {
+          if (hasOwnProperty.call(object, k)) {
+              if (receiver == null) {
+                  iterator(object[k], k, object);
+              } else {
+                  iterator.call(receiver, object[k], k, object);
+              }
+          }
       }
-    }
   };
 
   var forEach = function forEach(list, iterator, thisArg) {
-    if (!isCallable(iterator)) {
-      throw new TypeError('iterator must be a function');
-    }
+      if (!isCallable(iterator)) {
+          throw new TypeError('iterator must be a function');
+      }
 
-    var receiver;
+      var receiver;
+      if (arguments.length >= 3) {
+          receiver = thisArg;
+      }
 
-    if (arguments.length >= 3) {
-      receiver = thisArg;
-    }
-
-    if (toStr$1.call(list) === '[object Array]') {
-      forEachArray(list, iterator, receiver);
-    } else if (typeof list === 'string') {
-      forEachString(list, iterator, receiver);
-    } else {
-      forEachObject(list, iterator, receiver);
-    }
+      if (toStr$1.call(list) === '[object Array]') {
+          forEachArray(list, iterator, receiver);
+      } else if (typeof list === 'string') {
+          forEachString(list, iterator, receiver);
+      } else {
+          forEachObject(list, iterator, receiver);
+      }
   };
 
   var forEach_1 = forEach;
 
-  var isArray = function isArray(arg) {
-    return Object.prototype.toString.call(arg) === '[object Array]';
-  };
+  var isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+      };
 
-  var parseHeaders = function parseHeaders(headers) {
-    if (!headers) return {};
+  var parseHeaders = function (headers) {
+    if (!headers)
+      return {}
+
     var result = {};
-    forEach_1(trim_1(headers).split('\n'), function (row) {
-      var index = row.indexOf(':'),
-          key = trim_1(row.slice(0, index)).toLowerCase(),
-          value = trim_1(row.slice(index + 1));
 
-      if (typeof result[key] === 'undefined') {
-        result[key] = value;
-      } else if (isArray(result[key])) {
-        result[key].push(value);
-      } else {
-        result[key] = [result[key], value];
-      }
-    });
-    return result;
+    forEach_1(
+        trim_1(headers).split('\n')
+      , function (row) {
+          var index = row.indexOf(':')
+            , key = trim_1(row.slice(0, index)).toLowerCase()
+            , value = trim_1(row.slice(index + 1));
+
+          if (typeof(result[key]) === 'undefined') {
+            result[key] = value;
+          } else if (isArray(result[key])) {
+            result[key].push(value);
+          } else {
+            result[key] = [ result[key], value ];
+          }
+        }
+    );
+
+    return result
   };
 
   var immutable = extend;
+
   var hasOwnProperty$1 = Object.prototype.hasOwnProperty;
 
   function extend() {
-    var target = {};
+      var target = {};
 
-    for (var i = 0; i < arguments.length; i++) {
-      var source = arguments[i];
+      for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
 
-      for (var key in source) {
-        if (hasOwnProperty$1.call(source, key)) {
-          target[key] = source[key];
-        }
+          for (var key in source) {
+              if (hasOwnProperty$1.call(source, key)) {
+                  target[key] = source[key];
+              }
+          }
       }
-    }
 
-    return target;
+      return target
   }
 
   var xhr = createXHR;
   createXHR.XMLHttpRequest = window$1.XMLHttpRequest || noop;
-  createXHR.XDomainRequest = "withCredentials" in new createXHR.XMLHttpRequest() ? createXHR.XMLHttpRequest : window$1.XDomainRequest;
-  forEachArray$1(["get", "put", "post", "patch", "head", "delete"], function (method) {
-    createXHR[method === "delete" ? "del" : method] = function (uri, options, callback) {
-      options = initParams(uri, options, callback);
-      options.method = method.toUpperCase();
-      return _createXHR(options);
-    };
+  createXHR.XDomainRequest = "withCredentials" in (new createXHR.XMLHttpRequest()) ? createXHR.XMLHttpRequest : window$1.XDomainRequest;
+
+  forEachArray$1(["get", "put", "post", "patch", "head", "delete"], function(method) {
+      createXHR[method === "delete" ? "del" : method] = function(uri, options, callback) {
+          options = initParams(uri, options, callback);
+          options.method = method.toUpperCase();
+          return _createXHR(options)
+      };
   });
 
   function forEachArray$1(array, iterator) {
-    for (var i = 0; i < array.length; i++) {
-      iterator(array[i]);
-    }
+      for (var i = 0; i < array.length; i++) {
+          iterator(array[i]);
+      }
   }
 
-  function isEmpty(obj) {
-    for (var i in obj) {
-      if (obj.hasOwnProperty(i)) return false;
-    }
-
-    return true;
+  function isEmpty(obj){
+      for(var i in obj){
+          if(obj.hasOwnProperty(i)) return false
+      }
+      return true
   }
 
   function initParams(uri, options, callback) {
-    var params = uri;
+      var params = uri;
 
-    if (isFunction_1(options)) {
-      callback = options;
-
-      if (typeof uri === "string") {
-        params = {
-          uri: uri
-        };
+      if (isFunction_1(options)) {
+          callback = options;
+          if (typeof uri === "string") {
+              params = {uri:uri};
+          }
+      } else {
+          params = immutable(options, {uri: uri});
       }
-    } else {
-      params = immutable(options, {
-        uri: uri
-      });
-    }
 
-    params.callback = callback;
-    return params;
+      params.callback = callback;
+      return params
   }
 
   function createXHR(uri, options, callback) {
-    options = initParams(uri, options, callback);
-    return _createXHR(options);
+      options = initParams(uri, options, callback);
+      return _createXHR(options)
   }
 
   function _createXHR(options) {
-    if (typeof options.callback === "undefined") {
-      throw new Error("callback argument missing");
-    }
-
-    var called = false;
-
-    var callback = function cbOnce(err, response, body) {
-      if (!called) {
-        called = true;
-        options.callback(err, response, body);
-      }
-    };
-
-    function readystatechange() {
-      if (xhr.readyState === 4) {
-        setTimeout(loadFunc, 0);
-      }
-    }
-
-    function getBody() {
-      // Chrome with requestType=blob throws errors arround when even testing access to responseText
-      var body = undefined;
-
-      if (xhr.response) {
-        body = xhr.response;
-      } else {
-        body = xhr.responseText || getXml(xhr);
+      if(typeof options.callback === "undefined"){
+          throw new Error("callback argument missing")
       }
 
-      if (isJson) {
-        try {
-          body = JSON.parse(body);
-        } catch (e) {}
+      var called = false;
+      var callback = function cbOnce(err, response, body){
+          if(!called){
+              called = true;
+              options.callback(err, response, body);
+          }
+      };
+
+      function readystatechange() {
+          if (xhr.readyState === 4) {
+              setTimeout(loadFunc, 0);
+          }
       }
 
-      return body;
-    }
+      function getBody() {
+          // Chrome with requestType=blob throws errors arround when even testing access to responseText
+          var body = undefined;
 
-    function errorFunc(evt) {
-      clearTimeout(timeoutTimer);
+          if (xhr.response) {
+              body = xhr.response;
+          } else {
+              body = xhr.responseText || getXml(xhr);
+          }
 
-      if (!(evt instanceof Error)) {
-        evt = new Error("" + (evt || "Unknown XMLHttpRequest Error"));
+          if (isJson) {
+              try {
+                  body = JSON.parse(body);
+              } catch (e) {}
+          }
+
+          return body
       }
 
-      evt.statusCode = 0;
-      return callback(evt, failureResponse);
-    } // will load the data & process the response in a special response object
-
-
-    function loadFunc() {
-      if (aborted) return;
-      var status;
-      clearTimeout(timeoutTimer);
-
-      if (options.useXDR && xhr.status === undefined) {
-        //IE8 CORS GET successful response doesn't have a status field, but body is fine
-        status = 200;
-      } else {
-        status = xhr.status === 1223 ? 204 : xhr.status;
+      function errorFunc(evt) {
+          clearTimeout(timeoutTimer);
+          if(!(evt instanceof Error)){
+              evt = new Error("" + (evt || "Unknown XMLHttpRequest Error") );
+          }
+          evt.statusCode = 0;
+          return callback(evt, failureResponse)
       }
 
-      var response = failureResponse;
-      var err = null;
+      // will load the data & process the response in a special response object
+      function loadFunc() {
+          if (aborted) return
+          var status;
+          clearTimeout(timeoutTimer);
+          if(options.useXDR && xhr.status===undefined) {
+              //IE8 CORS GET successful response doesn't have a status field, but body is fine
+              status = 200;
+          } else {
+              status = (xhr.status === 1223 ? 204 : xhr.status);
+          }
+          var response = failureResponse;
+          var err = null;
 
-      if (status !== 0) {
-        response = {
-          body: getBody(),
-          statusCode: status,
-          method: method,
+          if (status !== 0){
+              response = {
+                  body: getBody(),
+                  statusCode: status,
+                  method: method,
+                  headers: {},
+                  url: uri,
+                  rawRequest: xhr
+              };
+              if(xhr.getAllResponseHeaders){ //remember xhr can in fact be XDR for CORS in IE
+                  response.headers = parseHeaders(xhr.getAllResponseHeaders());
+              }
+          } else {
+              err = new Error("Internal XMLHttpRequest Error");
+          }
+          return callback(err, response, response.body)
+      }
+
+      var xhr = options.xhr || null;
+
+      if (!xhr) {
+          if (options.cors || options.useXDR) {
+              xhr = new createXHR.XDomainRequest();
+          }else{
+              xhr = new createXHR.XMLHttpRequest();
+          }
+      }
+
+      var key;
+      var aborted;
+      var uri = xhr.url = options.uri || options.url;
+      var method = xhr.method = options.method || "GET";
+      var body = options.body || options.data;
+      var headers = xhr.headers = options.headers || {};
+      var sync = !!options.sync;
+      var isJson = false;
+      var timeoutTimer;
+      var failureResponse = {
+          body: undefined,
           headers: {},
+          statusCode: 0,
+          method: method,
           url: uri,
           rawRequest: xhr
-        };
+      };
 
-        if (xhr.getAllResponseHeaders) {
-          //remember xhr can in fact be XDR for CORS in IE
-          response.headers = parseHeaders(xhr.getAllResponseHeaders());
-        }
-      } else {
-        err = new Error("Internal XMLHttpRequest Error");
+      if ("json" in options && options.json !== false) {
+          isJson = true;
+          headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json"); //Don't override existing accept header declared by user
+          if (method !== "GET" && method !== "HEAD") {
+              headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json"); //Don't override existing accept header declared by user
+              body = JSON.stringify(options.json === true ? body : options.json);
+          }
       }
 
-      return callback(err, response, response.body);
-    }
-
-    var xhr = options.xhr || null;
-
-    if (!xhr) {
-      if (options.cors || options.useXDR) {
-        xhr = new createXHR.XDomainRequest();
-      } else {
-        xhr = new createXHR.XMLHttpRequest();
+      xhr.onreadystatechange = readystatechange;
+      xhr.onload = loadFunc;
+      xhr.onerror = errorFunc;
+      // IE9 must have onprogress be set to a unique function.
+      xhr.onprogress = function () {
+          // IE must die
+      };
+      xhr.onabort = function(){
+          aborted = true;
+      };
+      xhr.ontimeout = errorFunc;
+      xhr.open(method, uri, !sync, options.username, options.password);
+      //has to be after open
+      if(!sync) {
+          xhr.withCredentials = !!options.withCredentials;
       }
-    }
-
-    var key;
-    var aborted;
-    var uri = xhr.url = options.uri || options.url;
-    var method = xhr.method = options.method || "GET";
-    var body = options.body || options.data;
-    var headers = xhr.headers = options.headers || {};
-    var sync = !!options.sync;
-    var isJson = false;
-    var timeoutTimer;
-    var failureResponse = {
-      body: undefined,
-      headers: {},
-      statusCode: 0,
-      method: method,
-      url: uri,
-      rawRequest: xhr
-    };
-
-    if ("json" in options && options.json !== false) {
-      isJson = true;
-      headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json"); //Don't override existing accept header declared by user
-
-      if (method !== "GET" && method !== "HEAD") {
-        headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json"); //Don't override existing accept header declared by user
-
-        body = JSON.stringify(options.json === true ? body : options.json);
+      // Cannot set timeout with sync request
+      // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
+      // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
+      if (!sync && options.timeout > 0 ) {
+          timeoutTimer = setTimeout(function(){
+              if (aborted) return
+              aborted = true;//IE9 may still call readystatechange
+              xhr.abort("timeout");
+              var e = new Error("XMLHttpRequest timeout");
+              e.code = "ETIMEDOUT";
+              errorFunc(e);
+          }, options.timeout );
       }
-    }
 
-    xhr.onreadystatechange = readystatechange;
-    xhr.onload = loadFunc;
-    xhr.onerror = errorFunc; // IE9 must have onprogress be set to a unique function.
-
-    xhr.onprogress = function () {// IE must die
-    };
-
-    xhr.onabort = function () {
-      aborted = true;
-    };
-
-    xhr.ontimeout = errorFunc;
-    xhr.open(method, uri, !sync, options.username, options.password); //has to be after open
-
-    if (!sync) {
-      xhr.withCredentials = !!options.withCredentials;
-    } // Cannot set timeout with sync request
-    // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
-    // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
-
-
-    if (!sync && options.timeout > 0) {
-      timeoutTimer = setTimeout(function () {
-        if (aborted) return;
-        aborted = true; //IE9 may still call readystatechange
-
-        xhr.abort("timeout");
-        var e = new Error("XMLHttpRequest timeout");
-        e.code = "ETIMEDOUT";
-        errorFunc(e);
-      }, options.timeout);
-    }
-
-    if (xhr.setRequestHeader) {
-      for (key in headers) {
-        if (headers.hasOwnProperty(key)) {
-          xhr.setRequestHeader(key, headers[key]);
-        }
+      if (xhr.setRequestHeader) {
+          for(key in headers){
+              if(headers.hasOwnProperty(key)){
+                  xhr.setRequestHeader(key, headers[key]);
+              }
+          }
+      } else if (options.headers && !isEmpty(options.headers)) {
+          throw new Error("Headers cannot be set on an XDomainRequest object")
       }
-    } else if (options.headers && !isEmpty(options.headers)) {
-      throw new Error("Headers cannot be set on an XDomainRequest object");
-    }
 
-    if ("responseType" in options) {
-      xhr.responseType = options.responseType;
-    }
+      if ("responseType" in options) {
+          xhr.responseType = options.responseType;
+      }
 
-    if ("beforeSend" in options && typeof options.beforeSend === "function") {
-      options.beforeSend(xhr);
-    } // Microsoft Edge browser sends "undefined" when send is called with undefined value.
-    // XMLHttpRequest spec says to pass null as body to indicate no body
-    // See https://github.com/naugtur/xhr/issues/100.
+      if ("beforeSend" in options &&
+          typeof options.beforeSend === "function"
+      ) {
+          options.beforeSend(xhr);
+      }
+
+      // Microsoft Edge browser sends "undefined" when send is called with undefined value.
+      // XMLHttpRequest spec says to pass null as body to indicate no body
+      // See https://github.com/naugtur/xhr/issues/100.
+      xhr.send(body || null);
+
+      return xhr
 
 
-    xhr.send(body || null);
-    return xhr;
   }
 
   function getXml(xhr) {
-    if (xhr.responseType === "document") {
-      return xhr.responseXML;
-    }
+      if (xhr.responseType === "document") {
+          return xhr.responseXML
+      }
+      var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror";
+      if (xhr.responseType === "" && !firefoxBugTakenEffect) {
+          return xhr.responseXML
+      }
 
-    var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror";
-
-    if (xhr.responseType === "" && !firefoxBugTakenEffect) {
-      return xhr.responseXML;
-    }
-
-    return null;
+      return null
   }
 
   function noop() {}

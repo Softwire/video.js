@@ -39,7 +39,7 @@ const primedCjs = commonjs({
 });
 const primedBabel = babel({
   babelrc: false,
-  exclude: 'node_modules/**(!http-streaming)',
+  exclude: 'node_modules/**',
   compact: false,
   presets: [
     ['@babel/preset-env', {
@@ -144,8 +144,7 @@ export default cliargs => [
     external: externals.module,
     plugins: [
       alias({
-        'video.js': path.resolve(__dirname, './src/js/video.js'),
-        '@videojs/http-streaming': path.resolve(__dirname, './node_modules/@videojs/http-streaming/dist/videojs-http-streaming.es.js')
+        'video.js': path.resolve(__dirname, './src/js/video.js')
       }),
       json(),
       primedBabel,

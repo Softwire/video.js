@@ -3,12 +3,32 @@ import mergeOptions from './utils/merge-options.js';
 import document from 'global/document';
 import * as browser from './utils/browser.js';
 
+const defaults = {
+  liveTolerance: 60
+};
+
 /* track when we are at the live edge, and other helpers for live playback */
 class LiveTracker extends Component {
 
+  /**
+   * Creates an instance of this class.
+   *
+   * @param {Player} player
+   *        The `Player` that this class should be attached to.
+   *
+   * @param {Object} [options]
+   *        The key/value store of player options.
+   *
+   *
+   * @param {number} [options.liveTolerance=60]
+   *        Number of seconds behind live that we have to be
+   *        before we will be considered non-live. Note that this will only
+   *        be used when playing at the live edge. This allows large seekable end
+   *        changes to not affect whether we are live or not.
+   */
   constructor(player, options) {
     // LiveTracker does not need an element
-    const options_ = mergeOptions({createEl: false}, options);
+    const options_ = mergeOptions(defaults, {createEl: false}, options);
 
     super(player, options_);
 
@@ -43,17 +63,12 @@ class LiveTracker extends Component {
     }
     const liveCurrentTime = this.liveCurrentTime();
     const currentTime = this.player_.currentTime();
-    const seekableIncrement = this.seekableIncrement_;
 
-    // the live edge window is the amount of seconds away from live
-    // that a player can be, but still be considered live.
-    // we add 0.07 because the live tracking happens every 30ms
-    // and we want some wiggle room for short segment live playback
-    const liveEdgeWindow = (seekableIncrement * 2) + 0.07;
-
-    // on Android liveCurrentTime can bee Infinity, because seekableEnd
+    // on Android liveCurrentTime can be Infinity, because seekableEnd
     // can be Infinity, so we handle that case.
-    return liveCurrentTime !== Infinity && (liveCurrentTime - liveEdgeWindow) >= currentTime;
+    // we are behind live if the difference between live and current time is greater
+    // than liveTolerance, which defaults to 1m.
+    return liveCurrentTime !== Infinity && (liveCurrentTime - this.options_.liveTolerance) >= currentTime;
   }
 
   // all the functionality for tracking when seek end changes

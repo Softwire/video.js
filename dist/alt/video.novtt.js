@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 7.5.14 <http://videojs.com/>
+ * Video.js 7.5.15 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -18,7 +18,7 @@
   window$1 = window$1 && window$1.hasOwnProperty('default') ? window$1['default'] : window$1;
   document = document && document.hasOwnProperty('default') ? document['default'] : document;
 
-  var version = "7.5.14";
+  var version = "7.5.15";
 
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
@@ -18214,6 +18214,9 @@
 
   Component.registerComponent('ResizeManager', ResizeManager);
 
+  var defaults = {
+    liveTolerance: 60
+  };
   /* track when we are at the live edge, and other helpers for live playback */
 
   var LiveTracker =
@@ -18221,11 +18224,27 @@
   function (_Component) {
     _inheritsLoose(LiveTracker, _Component);
 
+    /**
+     * Creates an instance of this class.
+     *
+     * @param {Player} player
+     *        The `Player` that this class should be attached to.
+     *
+     * @param {Object} [options]
+     *        The key/value store of player options.
+     *
+     *
+     * @param {number} [options.liveTolerance=60]
+     *        Number of seconds behind live that we have to be
+     *        before we will be considered non-live. Note that this will only
+     *        be used when playing at the live edge. This allows large seekable end
+     *        changes to not affect whether we are live or not.
+     */
     function LiveTracker(player, options) {
       var _this;
 
       // LiveTracker does not need an element
-      var options_ = mergeOptions({
+      var options_ = mergeOptions(defaults, {
         createEl: false
       }, options);
       _this = _Component.call(this, player, options_) || this;
@@ -18265,16 +18284,12 @@
       }
 
       var liveCurrentTime = this.liveCurrentTime();
-      var currentTime = this.player_.currentTime();
-      var seekableIncrement = this.seekableIncrement_; // the live edge window is the amount of seconds away from live
-      // that a player can be, but still be considered live.
-      // we add 0.07 because the live tracking happens every 30ms
-      // and we want some wiggle room for short segment live playback
-
-      var liveEdgeWindow = seekableIncrement * 2 + 0.07; // on Android liveCurrentTime can bee Infinity, because seekableEnd
+      var currentTime = this.player_.currentTime(); // on Android liveCurrentTime can be Infinity, because seekableEnd
       // can be Infinity, so we handle that case.
+      // we are behind live if the difference between live and current time is greater
+      // than liveTolerance, which defaults to 1m.
 
-      return liveCurrentTime !== Infinity && liveCurrentTime - liveEdgeWindow >= currentTime;
+      return liveCurrentTime !== Infinity && liveCurrentTime - this.options_.liveTolerance >= currentTime;
     } // all the functionality for tracking when seek end changes
     // and for tracking how far past seek end we should be
     ;
